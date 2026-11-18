@@ -1,6 +1,7 @@
 package com.rica.publicaciones_service.compartido;
 
 import com.rica.publicaciones_service.compartido.CorreoDuplicadoException;
+import com.rica.publicaciones_service.publicaciones.ServicioNoDisponibleException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -44,6 +45,11 @@ public class GlobalExceptionHandler {
         cuerpo.put("estado", estado.value());
         cuerpo.put("mensaje", mensaje);
         return ResponseEntity.status(estado).body(cuerpo);
+    }
+
+    @ExceptionHandler(ServicioNoDisponibleException.class)
+    public ResponseEntity<Map<String, Object>> manejarServicioNoDisponible(ServicioNoDisponibleException ex) {
+        return construirRespuesta(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
     }
 
 }
