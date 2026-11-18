@@ -19,7 +19,7 @@ class FichaInvestigadorTest {
         ficha.agregarPublicacion(publicacion("p1"));
         ficha.agregarPublicacion(publicacion("p2"));
 
-        assertThat(ficha.getTotalPublicaciones()).isEqualTo(99); // <-- antes decía 2
+        assertThat(ficha.getTotalPublicaciones()).isEqualTo(2);
     }
 
     @Test

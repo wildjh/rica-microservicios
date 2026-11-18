@@ -102,13 +102,3 @@ consultas-service:
 2026-11-18T15:03:38.701-05:00  INFO 48724 --- [consultas-service] [ntainer#1-0-C-1] c.r.c.consultas.ProyectorFichas          : Proyección: ficha de sofia.rios@uptc.edu.co ahora tiene 2 publicaciones
 2026-11-18T15:04:52.062-05:00  INFO 48724 --- [consultas-service] [ntainer#4-0-C-1] c.r.c.consultas.ProyectorFichas          : Proyección: sofia.rios@uptc.edu.co marcado EN_ELIMINACION
 2026-11-18T15:04:54.116-05:00  INFO 48724 --- [consultas-service] [ntainer#3-0-C-1] c.r.c.consultas.ProyectorFichas          : Proyección: ficha de sofia.rios@uptc.edu.co eliminada
-
-
-Taller Lección 11
-
-Responde por escrito, con tus palabras: (a) ¿por qué se copia primero pom.xml y luego src? (b) ¿qué contiene la imagen final y qué no? (c) ¿por qué USER rica?
-
-Docker construye y guarda cada instrucción como una capa en caché. Como el código fuente cambia con mucha frecuencia pero las dependencias del pom.xml casi no varían, copiar y resolver primero el pom.xml permite que Docker reutilice la capa de dependencias descargadas y solo vuelva a compilar nuestro código en construcciones posteriores, ahorrando bastante tiempo.
-Gracias a la construcción multietapa (multi-stage build), la imagen final contiene únicamente el entorno de ejecución de Java (eclipse-temurin:25-jre), el archivo compilado app.jar y el usuario de sistema rica. No contiene Maven, ni el JDK completo, ni el código fuente (src), ni los archivos temporales de compilación (target/), lo que hace que la imagen sea mucho más liviana y tenga menos superficie de ataque.
-¿Por qué USER rica?
-Por seguridad (principio de mínimo privilegio): por defecto, los contenedores ejecutan sus procesos como root, lo que implica que si un atacante logra comprometer la aplicación dentro del contenedor tendría permisos de administrador sobre él. Crear y usar un usuario sin privilegios (rica) limita el daño potencial en caso de una vulnerabilidad.
