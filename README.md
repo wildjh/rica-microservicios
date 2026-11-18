@@ -53,3 +53,27 @@ Esto cambiaría en cada punto si el modelo de lectura y el de escritura fueran e
 
 
 5. **Lista de fichas reconstruida tras el paso 8:** No sería posible eliminar por completo la base de datos de consulta y reconstruirla reproduciendo el historial de eventos de Kafka sin afectar los datos reales, porque borrar la base de lectura significaría destruir la única fuente de verdad del sistema.
+
+
+
+### Evidencia del taller 9
+
+Log para Introducción con formato disitnto de json
+
+2026-11-18T14:52:40.066-05:00  INFO 48724 --- [consultas-service] [ntainer#3-0-C-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-consultas-service-v2-2, groupId=consultas-service-v2] Resetting offset for partition investigadores.eliminados-0 to position FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:9092 (id: 1 rack: null isFenced: false)], epoch=0}}.
+2026-11-18T14:52:40.067-05:00  INFO 48724 --- [consultas-service] [ntainer#3-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : consultas-service-v2: partitions assigned: [investigadores.eliminados-0]
+2026-11-18T14:52:40.519-05:00  INFO 48724 --- [consultas-service] [ntainer#0-0-C-1] c.r.c.consultas.EstadisticasListener     : Estadísticas: alta contada (investigadores.registrados-0-0). Total: 1
+2026-11-18T14:52:40.543-05:00  INFO 48724 --- [consultas-service] [ntainer#0-0-C-1] c.r.c.consultas.EstadisticasListener     : Estadísticas: alta contada (investigadores.registrados-0-1). Total: 2
+2026-11-18T14:52:40.556-05:00  INFO 48724 --- [consultas-service] [ntainer#0-0-C-1] c.r.c.consultas.EstadisticasListener     : Estadísticas: alta contada (investigadores.registrados-0-2). Total: 3
+2026-11-18T14:52:40.570-05:00  INFO 48724 --- [consultas-service] [ntainer#0-0-C-1] c.r.c.consultas.EstadisticasListener     : Estadísticas: alta contada (investigadores.registrados-0-3). Total: 4
+2026-11-18T14:52:40.574-05:00  WARN 48724 --- [consultas-service] [ntainer#0-0-C-1] c.r.c.consultas.EstadisticasListener     : Estadísticas: mensaje no válido en investigadores.registrados-0@4, no se cuenta
+2026-11-18T14:52:40.589-05:00  INFO 48724 --- [consultas-service] [ntainer#0-0-C-1] c.r.c.consultas.EstadisticasListener     : Estadísticas: alta contada (investigadores.registrados-0-5). Total: 5
+2026-11-18T14:52:40.589-05:00  WARN 48724 --- [consultas-service] [ntainer#0-0-C-1] c.r.c.consultas.EstadisticasListener     : Estadísticas: mensaje no válido en investigadores.registrados-0@6, no se cuenta
+2026-11-18T14:56:30.075-05:00  WARN 48724 --- [consultas-service] [ntainer#0-0-C-1] c.r.c.consultas.EstadisticasListener     : Estadísticas: mensaje no válido en investigadores.registrados-0@7, no se cuenta
+2026-11-18T14:56:30.614-05:00  INFO 48724 --- [consultas-service] [ntainer#2-0-C-1] o.a.kafka.common.config.AbstractConfig   : ProducerConfig values: 
+
+endpoint de estadisticas
+
+{
+  "investigadoresRegistrados": 5
+}
