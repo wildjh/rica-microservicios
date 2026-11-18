@@ -18,8 +18,18 @@ public class Publicacion {
     private Map<String, String> detalles;
     private boolean huerfana;
 
-    public Publicacion() {
+    public Publicacion(){
+
     }
+    public Publicacion(String id, String investigadorCorreo, String titulo, String tipo, Integer anio, Map<String, String> detalles) {
+        this.id = id;
+        this.investigadorCorreo = investigadorCorreo;
+        this.titulo = titulo;
+        this.tipo = tipo;
+        this.anio = anio;
+        this.detalles = detalles;
+    }
+
 
     // ... getters y setters de cada atributo
 

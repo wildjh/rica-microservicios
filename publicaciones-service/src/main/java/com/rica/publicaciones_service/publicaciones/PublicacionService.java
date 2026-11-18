@@ -1,7 +1,6 @@
 package com.rica.publicaciones_service.publicaciones;
 
 import com.rica.publicaciones_service.compartido.RecursoNoEncontradoException;
-import com.rica.publicaciones_service.publicaciones.VerificadorInvestigador;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,15 +9,18 @@ import java.util.List;
 public class PublicacionService {
 
     private final PublicacionRepository publicacionRepository;
-    private final VerificadorInvestigador verificadorInvestigador; // antes: InvestigadorRepository
+    private final VerificadorInvestigador verificadorInvestigador;
     private final LimitePublicacionesAnualesService limitePublicacionesAnualesService;
+    private final PublicadorEventosPublicaciones publicadorEventos;
 
     public PublicacionService(PublicacionRepository publicacionRepository,
-                              VerificadorInvestigador investigadorRepository,
-                              LimitePublicacionesAnualesService limitePublicacionesAnualesService) {
+                              VerificadorInvestigador verificadorInvestigador,
+                              LimitePublicacionesAnualesService limitePublicacionesAnualesService,
+                              PublicadorEventosPublicaciones publicadorEventos) {
         this.publicacionRepository = publicacionRepository;
-        this.verificadorInvestigador = investigadorRepository;
+        this.verificadorInvestigador = verificadorInvestigador;
         this.limitePublicacionesAnualesService = limitePublicacionesAnualesService;
+        this.publicadorEventos = publicadorEventos;
     }
 
     public Publicacion registrar(Publicacion publicacion) {
@@ -31,7 +33,9 @@ public class PublicacionService {
                     "El investigador " + publicacion.getInvestigadorCorreo()
                             + " ya alcanzó el máximo de publicaciones registradas para " + publicacion.getAnio());
         }
-        return publicacionRepository.save(publicacion);
+        Publicacion guardada = publicacionRepository.save(publicacion);
+        publicadorEventos.publicacionRegistrada(guardada);
+        return guardada;
     }
 
     public List<Publicacion> listarPorInvestigador(String investigadorCorreo) {
