@@ -77,3 +77,28 @@ endpoint de estadisticas
 {
   "investigadoresRegistrados": 5
 }
+
+Taller SAGA - Lección 10
+
+Líneas mostradas al eliminar a Sofia Rios
+Publicaciones service: 
+2026-11-18T15:02:55.133-05:00  INFO 14688 --- [publicaciones-service] [ntainer#1-0-C-1] c.r.p.p.InvestigadorRegistradoListener   : Evento recibido [investigadores.registrados]: {"id":6,"nombreCompleto":"Sofia Rios","correoInstitucional":"sofia.rios@uptc.edu.co"}
+2026-11-18T15:04:52.237-05:00  INFO 14688 --- [publicaciones-service] [ntainer#0-0-C-1] .r.p.p.InvestigadorEnEliminacionListener : Saga: 2 publicaciones de sofia.rios@uptc.edu.co marcadas como huérfanas
+2026-11-18T15:05:21.749-05:00  INFO 14688 --- [publicaciones-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+investigadores service:
+
+26-11-18T15:02:55.131-05:00  INFO 49092 --- [investigadores-service] [   scheduling-1] c.r.i.i.i.s.mensajeria.OutboxPoller      : Evento 7 publicado en investigadores.registrados
+2026-11-18T15:04:44.392-05:00  INFO 49092 --- [investigadores-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-11-18T15:04:52.045-05:00  INFO 49092 --- [investigadores-service] [   scheduling-1] c.r.i.i.i.s.mensajeria.OutboxPoller      : Evento 8 publicado en investigadores.en-eliminacion
+2026-11-18T15:04:52.342-05:00  INFO 49092 --- [investigadores-service] [ntainer#0-0-C-1] .i.i.i.e.m.PublicacionesMarcadasListener : Saga: publicaciones confirmó para sofia.rios@uptc.edu.co. Eliminando investigador.
+2026-11-18T15:04:54.094-05:00  INFO 49092 --- [investigadores-service] [   scheduling-1] c.r.i.i.i.s.mensajeria.OutboxPoller      : Evento 9 publicado en investigadores.eliminados
+
+consultas-service:
+
+2026-11-18T15:02:37.835-05:00  INFO 48724 --- [consultas-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-11-18T15:02:55.148-05:00  INFO 48724 --- [consultas-service] [ntainer#0-0-C-1] c.r.c.consultas.EstadisticasListener     : Estadísticas: alta contada (investigadores.registrados-0-8). Total: 6
+2026-11-18T15:02:55.182-05:00  INFO 48724 --- [consultas-service] [ntainer#2-0-C-1] c.r.c.consultas.ProyectorFichas          : Proyección: ficha de sofia.rios@uptc.edu.co actualizada (registro)
+2026-11-18T15:03:34.467-05:00  INFO 48724 --- [consultas-service] [ntainer#1-0-C-1] c.r.c.consultas.ProyectorFichas          : Proyección: ficha de sofia.rios@uptc.edu.co ahora tiene 1 publicaciones
+2026-11-18T15:03:38.701-05:00  INFO 48724 --- [consultas-service] [ntainer#1-0-C-1] c.r.c.consultas.ProyectorFichas          : Proyección: ficha de sofia.rios@uptc.edu.co ahora tiene 2 publicaciones
+2026-11-18T15:04:52.062-05:00  INFO 48724 --- [consultas-service] [ntainer#4-0-C-1] c.r.c.consultas.ProyectorFichas          : Proyección: sofia.rios@uptc.edu.co marcado EN_ELIMINACION
+2026-11-18T15:04:54.116-05:00  INFO 48724 --- [consultas-service] [ntainer#3-0-C-1] c.r.c.consultas.ProyectorFichas          : Proyección: ficha de sofia.rios@uptc.edu.co eliminada
